@@ -1,0 +1,43 @@
+#!/bin/bash
+#=====================
+# Environment variables
+#=====================
+
+ENTRYPOINT_ARGS="$@"
+PROJECT_DIR="/src"
+NPM_FILE=package.json
+BOWER_FILE=bower.json
+EMBER_PROFILE="development"
+WEBSITE_ROOT_DIR=/var/www/html/
+
+#=====================
+# Go to the project folder
+#=====================
+cd $PROJECT_DIR
+
+#=====================
+# Building the app
+#=====================
+
+# Checking if there is a npm file
+if [ -f "$NPM_FILE" ]
+  then
+  npm install
+  npm update
+fi
+
+# Checking if there is a bower file
+if [ -f "$BOWER_FILE" ]
+  then
+  bower install --allow-root
+  bower update --allow-root
+fi
+
+# Executing ember build
+ember build --environment=$EMBER_PROFILE --output-path="$WEBSITE_ROOT_DIR" --watch
+
+cp config/.htaccess $WEBSITE_ROOT_DIR
+cd $FRONTEND_HTML_PATH
+/bin/bash --login -c "echo 'User-agent: *\nDisallow: /' > robots.txt"
+
+service apache2 restart
