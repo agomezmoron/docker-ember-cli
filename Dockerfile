@@ -10,7 +10,7 @@ MAINTAINER Alejandro Gomez <amoron@emergya.com>
 #================================
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV NODE_VERSION 6.5.0
+ENV NODE_VERSION 0.12
 ENV WEBSITE_ROOT_DIR /var/www/html
 ENV WATCHMAN_VERSION v4.6.0
 
