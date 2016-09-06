@@ -30,6 +30,7 @@ RUN apt-get update -y \
   && service apache2 restart \
   && a2enmod rewrite \
   && service apache2 reload \
+  && service apache2 stop \
   # Installing nodejs from binaries
   && cd /tmp  \
   && wget "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz" -O node-linux-x64.tar.gz --no-check-certificate \
@@ -50,11 +51,15 @@ RUN apt-get update -y \
 	&& ./configure \
 	&& make \
 	&& make install \
+  && echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p \
   && apt-get -qqy clean && rm -rf /var/cache/apt/*
 
 WORKDIR /src
 
+# Apache port
 EXPOSE 80
+# Ember port
+EXPOSE 4200
 
 # Adding the entrypoint
 COPY ./assets/bin/entrypoint /

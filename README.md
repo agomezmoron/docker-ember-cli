@@ -1,7 +1,5 @@
 # docker-ember-cli
-Docker image to work with emberjs
-
-Docker image to work with npm, gulp and bower stack. You can use it to work with, for example, AngularJS.
+Docker image to work with Emberjs.
 
 <img src="img/docker_logo.png" height="125" />
 <img src="img/ember_logo.png" height="125" />
@@ -44,16 +42,21 @@ docker pull agomezmoron/docker-ember-cli
 Run the image with the following command:
 
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -p 90:80  -e EMBER_PROFILE="development" -t -i agomezmoron/docker-ember-cli
+docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -p 90:4200  -e EMBER_SERVER="ember" -e EMBER_PROFILE="development" -t -i agomezmoron/docker-ember-cli
 ```
 
 or
 
 ```
-docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -p 90:80  -e EMBER_PROFILE="development" -d -t -i agomezmoron/docker-ember-cli
+docker run --privileged -v /YOUR/SOURCES/FOLDER:/src -p 90:80  -e EMBER_SERVER="apache2" -e EMBER_PROFILE="development" -t -i agomezmoron/docker-ember-cli
 ```
 
 And you will have your docker running on the 90 port.
+
+### Run variables
+
+ * **EMBER_SERVER:** Two possible values: "ember" or "apache2". By default, "ember".
+ * **EMBER_PROFILE:** By default, "development".
 
 ## Docker Stop
 

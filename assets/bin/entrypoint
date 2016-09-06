@@ -8,6 +8,7 @@ PROJECT_DIR="/src"
 NPM_FILE=package.json
 BOWER_FILE=bower.json
 EMBER_PROFILE="development"
+EMBER_SERVER="ember"
 WEBSITE_ROOT_DIR=/var/www/html/
 
 #=====================
@@ -33,11 +34,15 @@ if [ -f "$BOWER_FILE" ]
   bower update --allow-root
 fi
 
-# Executing ember build
-ember build --environment=$EMBER_PROFILE --output-path="$WEBSITE_ROOT_DIR" --watch
-
-cp config/.htaccess $WEBSITE_ROOT_DIR
-cd $FRONTEND_HTML_PATH
-/bin/bash --login -c "echo 'User-agent: *\nDisallow: /' > robots.txt"
-
-service apache2 restart
+if [ "$EMBER_SERVER" = "apache2" ]
+  then
+  # Executing ember build
+  ember build --environment=$EMBER_PROFILE --output-path="$WEBSITE_ROOT_DIR" --watch
+  cp config/.htaccess $WEBSITE_ROOT_DIR
+  cd $FRONTEND_HTML_PATH
+  /bin/bash --login -c "echo 'User-agent: *\nDisallow: /' > robots.txt"
+  service apache2 restart
+else
+  # Executing ember build
+  ember server
+fi
