@@ -5,6 +5,8 @@ Docker image to work with Emberjs.
 <img src="img/ember_logo.png" height="125" />
 <img src="img/npmbower_logo.png" height="125" />
 
+![](https://images.microbadger.com/badges/image/agomezmoron/docker-ember-cli.svg)
+
 ## Table of Contents
   - [Requirements](#requirements)
   - [Docker build](#docker-build)
